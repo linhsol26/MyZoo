@@ -1,0 +1,7 @@
+E:\C#\MyZoo\bin\Debug\MyZoo.exe.config
+E:\C#\MyZoo\bin\Debug\MyZoo.exe
+E:\C#\MyZoo\bin\Debug\MyZoo.pdb
+E:\C#\MyZoo\obj\Debug\MyZoo.csprojAssemblyReference.cache
+E:\C#\MyZoo\obj\Debug\MyZoo.csproj.CoreCompileInputs.cache
+E:\C#\MyZoo\obj\Debug\MyZoo.exe
+E:\C#\MyZoo\obj\Debug\MyZoo.pdb
