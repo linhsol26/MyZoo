@@ -27,6 +27,6 @@ namespace MyZoo
         public int BreedingPeriod { get; set; }
 
         public abstract void Breed(Environment ev);
-
+        public abstract void Die(Environment ev);
     }
 }

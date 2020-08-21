@@ -43,5 +43,13 @@ namespace MyZoo
                 ev.Spawn<Wolf>(2);
             }
         }
+
+        public override void Die(Environment ev)
+        {
+            if (health < 5)
+            {
+                ev.Die<Wolf>(id);
+            }
+        }
     }
 }

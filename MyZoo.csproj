@@ -47,6 +47,8 @@
     <Compile Include="Eagle.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Grass.cs" />
+    <Compile Include="IFight.cs" />
+    <Compile Include="IFly.cs" />
     <Compile Include="IHuntable.cs" />
     <Compile Include="IWeatherAffectable.cs" />
     <Compile Include="Plant.cs" />

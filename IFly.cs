@@ -8,6 +8,6 @@ namespace MyZoo
 {
     interface IFly
     {
-        void Fly(Environment ev);
+        void Fly();
     }
 }

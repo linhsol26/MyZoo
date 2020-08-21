@@ -8,6 +8,16 @@ namespace MyZoo
 {
     public class Grass : Plant, IWeatherAffectable
     {
+        public Grass()
+        {
+            Id = "";
+            Name = "";
+            Gender = GenderType.Female;
+            Weight = 10.0;
+            Length = 10.0;
+            Health = 100;
+            Age = 1;
+        }
         public void AffectTo(WeatherType weather)
         {
             switch(weather)
@@ -26,9 +36,16 @@ namespace MyZoo
 
         public override void Breed(Environment ev)
         {
-            if (Age > 1 && (ev.Weather == WeatherType.Rain))
+            if (Age > 1 && ev.Weather == WeatherType.Rain)
             {
                 ev.Spawn<Grass>(1);
+            }
+        }
+        public override void Die(Environment ev)
+        {
+            if (Health < 5)
+            {
+                ev.Die<Grass>(id);
             }
         }
     }

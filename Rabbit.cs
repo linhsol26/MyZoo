@@ -16,14 +16,15 @@ namespace MyZoo
         {
             List<Species> food = ev.Select<Grass>();
             // Grass selection = food[random.Next(0, food.Count)] as Grass;
-            for (int i = 0; i < food.Count; i++)
+            /*for (int i = 0; i < food.Count; i++)
             {
                 if (food[i].Health != 0)
                 {
                     food[i].Health = 0;
                     return;
                 }
-            }
+            }*/
+            food[0].Health = 0;
             health *= 0.5;
         }
 
@@ -32,6 +33,13 @@ namespace MyZoo
             if (age % breedingPeriod == 0)
             {
                 ev.Spawn<Rabbit>(1);
+            }
+        }
+        public override void Die(Environment ev)
+        {
+            if (health < 5)
+            {
+                ev.Die<Rabbit>(id);
             }
         }
     }

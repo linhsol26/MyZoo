@@ -23,7 +23,7 @@ namespace MyZoo
             health *= 0.95;
         }
 
-        public void Fly(Environment ev)
+        public void Fly()
         {
             flyed += 1;
             if (flyed % 5 == 0)
@@ -53,6 +53,14 @@ namespace MyZoo
             if (age % breedingPeriod == 0)
             {
                 ev.Spawn<Wolf>(2);
+            }
+        }
+
+        public override void Die(Environment ev)
+        {
+            if (health < 5)
+            {
+                ev.Die<Eagle>(id);
             }
         }
     }
