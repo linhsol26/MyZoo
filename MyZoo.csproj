@@ -53,6 +53,7 @@
     <Compile Include="IWeatherAffectable.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Rabbit.cs" />
+    <Compile Include="Render.cs" />
     <Compile Include="Species.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

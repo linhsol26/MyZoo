@@ -8,8 +8,8 @@ namespace MyZoo
 {
     public enum WeatherType
     {
-        Cold,
         Rain,
+        Cold,
         Hot,
         Normal
     }

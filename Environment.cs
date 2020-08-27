@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +13,6 @@ namespace MyZoo
         protected WeatherType weather;
         protected int days;
         protected List<Species> ecosystem;
-
         public WeatherType Weather { get; set; }
         public int Days { get; set; }
         public List<Species> Ecosystem { get; set; } = new List<Species>();
@@ -19,11 +20,15 @@ namespace MyZoo
         public void NextDay() 
         {
             Days++;
-            ChangeWeather();
+            if (Days % 10 == 0)
+            {
+                ChangeWeather();
+            }
+            Ecosystem.ForEach(v => v.Age++);
         }
         public List<Species> Select<T>() where T: Species // generic
         {
-            return null;
+            return Ecosystem.FindAll(v => v is T);
         }
         public void Eliminate(double threshold) { }
         public void ChangeWeather() 
@@ -31,25 +36,43 @@ namespace MyZoo
             Random random = new Random();
             Weather = (WeatherType) Enum.GetValues(typeof(WeatherType)).GetValue(random.Next(0, 3)); // dont know if it works.
         }
-        public void Hunt() { }
-        public void Feed() { }
-        public void Spawn<T>(int quantity) where T : Species, new()
+
+        public void Spawn<T>(int quantity) where T : Species
         {
-            IEnumerable<T> collection = Ecosystem.OfType<T>(); // doesnt work.
-            Console.WriteLine(collection.Count());
-            // get the length of the objects type T. (not solve)
-            for (int i = 0; i < collection.Count(); i++)
+            int numOfSpeciesInEcosystem = Select<T>().Count;
+
+            for (int j = 0; j < quantity; j++)
             {
-               for (int j = 0; j < quantity; j++)
-               {
-                    Ecosystem.Add(new T()); // dont know if it works.
-               }
+                if (typeof(T) == typeof(Grass))
+                {
+                    Ecosystem.Add(new Grass(numOfSpeciesInEcosystem));
+                }
+                else if (typeof(T) == typeof(Rabbit))
+                {
+                    Ecosystem.Add(new Rabbit(numOfSpeciesInEcosystem));
+                }
+                else if (typeof(T) == typeof(Wolf))
+                {
+                    Ecosystem.Add(new Wolf(numOfSpeciesInEcosystem));
+                }
+                else
+                {
+                    Ecosystem.Add(new Eagle(numOfSpeciesInEcosystem));
+                }
             }
  
         }
         public void Die<T>(string id) where T: Species
         {
-            ecosystem.RemoveAt(ecosystem.FindIndex(x => x.Id == id));
+            List<Species> slt = Select<T>();
+            // slt.ForEach(v => v.Id == id ? Ecosystem.Remove(v) : null);
+            for (int i = 0; i < slt.Count; i++)
+            {
+                if (slt[i].Id == id)
+                {
+                    Ecosystem.Remove(slt[i]);
+                }
+            }
         }
 
         public bool isExtinction()

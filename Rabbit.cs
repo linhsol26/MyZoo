@@ -8,38 +8,42 @@ namespace MyZoo
 {
     public class Rabbit : Animal, IHuntable
     {
-        public Rabbit()
+        public Rabbit(int index)
         {
-            breedingPeriod = 5;
+            Id = index.ToString();
+            Name = "";
+            Gender = GenderType.Female;
+            Weight = 10.0;
+            Length = 10.0;
+            Health = 100.0;
+            Age = 1;
+            BreedingPeriod = 5;
         }
         public void Hunt(Environment ev)
         {
-            List<Species> food = ev.Select<Grass>();
-            // Grass selection = food[random.Next(0, food.Count)] as Grass;
-            /*for (int i = 0; i < food.Count; i++)
+            List<Species> slt = ev.Select<Grass>();
+            if (slt.Count != 0)
             {
-                if (food[i].Health != 0)
-                {
-                    food[i].Health = 0;
-                    return;
-                }
-            }*/
-            food[0].Health = 0;
-            health *= 0.5;
+                ev.Ecosystem.Remove(slt[0]);
+            }
+            else
+            {
+                Health *= 0.5;
+            }
         }
 
         public override void Breed(Environment ev)
         {
-            if (age % breedingPeriod == 0)
+            if (Age % BreedingPeriod == 0)
             {
                 ev.Spawn<Rabbit>(1);
             }
         }
         public override void Die(Environment ev)
         {
-            if (health < 5)
+            if (Health < 5)
             {
-                ev.Die<Rabbit>(id);
+                ev.Die<Rabbit>(Id);
             }
         }
     }

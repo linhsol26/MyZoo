@@ -8,37 +8,41 @@ namespace MyZoo
 {
     public class Wolf : Animal, IHuntable, IWeatherAffectable
     {
-        public Wolf()
+        public Wolf(int index)
         {
-            breedingPeriod = 10;
+            Id = index.ToString();
+            Name = "";
+            Gender = GenderType.Female;
+            Weight = 10.0;
+            Length = 10.0;
+            Health = 100;
+            Age = 1;
+            BreedingPeriod = 10;
         }
         public void AffectTo(WeatherType weather)
         {
             if (weather == WeatherType.Cold)
             {
-                health *= 0.98;
+                Health *= 0.98;
             }
         }
 
         public void Hunt(Environment ev)
         {
             List<Species> food = ev.Select<Rabbit>();
-            for (int i = 0; i < food.Count; i++)
+            if (food.Count != 0)
             {
-                if (food[i].Health != 0)
-                {
-                    food[i].Health = 0;
-                    health += 5;
-                    weight *= 1.02;
-                    return;
-                }
+                ev.Ecosystem.Remove(food[0]);
+            } 
+            else
+            {
+                Health *= 0.5;
             }
-            health *= 0.5;
         }
 
         public override void Breed(Environment ev)
         {
-            if (age % breedingPeriod == 0)
+            if (Age % BreedingPeriod == 0)
             {
                 ev.Spawn<Wolf>(2);
             }
@@ -46,9 +50,9 @@ namespace MyZoo
 
         public override void Die(Environment ev)
         {
-            if (health < 5)
+            if (Health < 5)
             {
-                ev.Die<Wolf>(id);
+                ev.Die<Wolf>(Id);
             }
         }
     }

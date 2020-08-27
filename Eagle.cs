@@ -10,9 +10,16 @@ namespace MyZoo
     {
         private int flyed = 0;
 
-        public Eagle()
+        public Eagle(int index)
         {
-            breedingPeriod = 10;
+            Id = index.ToString();
+            Name = "";
+            Gender = GenderType.Female;
+            Weight = 10.0;
+            Length = 10.0;
+            Health = 100;
+            Age = 1;
+            BreedingPeriod = 10;
         }
         public void Fight(Environment ev)
         {
@@ -20,7 +27,7 @@ namespace MyZoo
             Random random = new Random();
             Wolf selection = wolfs[random.Next(0, wolfs.Count)] as Wolf;
             selection.Health *= 0.8;
-            health *= 0.95;
+            Health *= 0.95;
         }
 
         public void Fly()
@@ -28,39 +35,36 @@ namespace MyZoo
             flyed += 1;
             if (flyed % 5 == 0)
             {
-                health *= 0.8;
+                Health *= 0.8;
             }
         }
 
         public void Hunt(Environment ev)
         {
             List<Species> food = ev.Select<Rabbit>();
-            for (int i = 0; i < food.Count; i++)
+            if (food.Count != 0)
             {
-                if (food[i].Health != 0)
-                {
-                    food[i].Health = 0;
-                    length *= 1.02;
-                    weight *= 1.02;
-                    return;
-                }
+                ev.Ecosystem.Remove(food[0]);
             }
-            health *= 0.5;
+            else
+            {
+                Health *= 0.5;
+            }
         }
 
         public override void Breed(Environment ev)
         {
-            if (age % breedingPeriod == 0)
+            if (Age % BreedingPeriod == 0)
             {
-                ev.Spawn<Wolf>(2);
+                ev.Spawn<Eagle>(2);
             }
         }
 
         public override void Die(Environment ev)
         {
-            if (health < 5)
+            if (Health < 5)
             {
-                ev.Die<Eagle>(id);
+                ev.Die<Eagle>(Id);
             }
         }
     }

@@ -8,14 +8,14 @@ namespace MyZoo
 {
     public class Grass : Plant, IWeatherAffectable
     {
-        public Grass()
+        public Grass(int index)
         {
-            Id = "";
+            Id = index.ToString();
             Name = "";
             Gender = GenderType.Female;
             Weight = 10.0;
             Length = 10.0;
-            Health = 100;
+            Health = 100.0;
             Age = 1;
         }
         public void AffectTo(WeatherType weather)
@@ -23,13 +23,13 @@ namespace MyZoo
             switch(weather)
             {
                 case WeatherType.Rain:
-                    weight *= 1.05;
+                    Weight *= 1.05;
                     break;
                 case WeatherType.Hot:
-                    health *= 0.8;
+                    Health *= 0.8;
                     break;
                 case WeatherType.Cold:
-                    health *= 0.9;
+                    Health *= 0.9;
                     break;
             }
         }
@@ -38,14 +38,14 @@ namespace MyZoo
         {
             if (Age > 1 && ev.Weather == WeatherType.Rain)
             {
-                ev.Spawn<Grass>(1);
+                ev.Spawn<Grass>(2);
             }
         }
         public override void Die(Environment ev)
         {
             if (Health < 5)
             {
-                ev.Die<Grass>(id);
+                ev.Die<Grass>(Id);
             }
         }
     }
